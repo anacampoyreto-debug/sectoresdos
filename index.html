@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tema 5 · Sectores económicos II · Versión 3</title>
+  <style>
+    :root{
+      --bg:#f4f7fc;
+      --bg-soft:#f8fbff;
+      --card:#ffffff;
+      --text:#12233f;
+      --muted:#65748f;
+      --line:#dbe4f2;
+      --primary:#3558d8;
+      --primary-2:#6b8cff;
+      --accent:#0ea5a4;
+      --ok:#198754;
+      --danger:#d6336c;
+      --warning:#f59f00;
+      --violet:#7c3aed;
+      --shadow:0 16px 40px rgba(24,39,75,.08);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, #e7efff 0%, transparent 26%),
+        radial-gradient(circle at top right, #ebfcf9 0%, transparent 18%),
+        linear-gradient(180deg,#f9fbff 0%, var(--bg) 100%);
+    }
+
+    .wrap{
+      max-width:1280px;
+      margin:0 auto;
+      padding:22px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#2f49b8 0%, #5f7cf7 60%, #92c8ff 100%);
+      color:white;
+      border-radius:34px;
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      background:rgba(255,255,255,.12);
+    }
+
+    .hero::before{
+      width:240px;
+      height:240px;
+      right:-70px;
+      top:-70px;
+    }
+
+    .hero::after{
+      width:180px;
+      height:180px;
+      left:-60px;
+      bottom:-60px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,3vw,3.2rem);
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size:1.55rem;
+    }
+
+    h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+    }
+
+    p{
+      line-height:1.55;
+      margin:0 0 10px;
+    }
+
+    .muted{color:var(--muted)}
+    .small{font-size:.92rem}
+    .center{text-align:center}
+
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .hero-grid,
+    .top-grid,
+    .layout,
+    .grid-2,
+    .grid-3,
+    .kpi-grid{
+      display:grid;
+      gap:18px;
+    }
+
+    .hero-grid{
+      grid-template-columns:1.2fr .8fr;
+      align-items:start;
+    }
+
+    .top-grid{
+      grid-template-columns:1.15fr .85fr;
+      margin-top:18px;
+    }
+
+    .layout{
+      grid-template-columns:300px 1fr;
+      margin-top:18px;
+    }
+
+    .grid-2{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .grid-3{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .kpi-grid{
+      grid-template-columns:repeat(5,minmax(0,1fr));
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius-lg);
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .glass{
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      color:white;
+      backdrop-filter:blur(6px);
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .stat{
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.22);
+    }
+
+    .n{
+      font-size:1.7rem;
+      font-weight:700;
+    }
+
+    .menu{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    button,
+    .btn{
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:11px 15px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.2s transform,.2s opacity,.2s background;
+      background:var(--primary);
+      color:white;
+    }
+
+    button:hover,
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .secondary{
+      background:white;
+      color:var(--primary);
+    }
+
+    .ghost{
+      background:#eef4ff;
+      color:var(--primary);
+      border:1px solid #dbe4ff;
+    }
+
+    .good{background:var(--ok)}
+    .bad{background:var(--danger)}
+    .warn{background:var(--warning)}
+    .violet{background:var(--violet)}
+
+    .chip{
+      padding:9px 12px;
+      border-radius:999px;
+      background:#f8fbff;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .progress-shell{
+      height:16px;
+      border-radius:999px;
+      overflow:hidden;
+      background:#edf2fb;
+      border:1px solid #dce6f7;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#38bdf8,#4f46e5);
+      transition:width .35s ease;
+    }
+
+    .sidebar{
+      position:sticky;
+      top:16px;
+      align-self:start;
+    }
+
+    .nav a{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+      padding:11px 13px;
+      border-radius:14px;
+      margin-bottom:8px;
+      background:white;
+      border:1px solid var(--line);
+    }
+
+    .nav a:hover{
+      background:#f6faff;
+    }
+
+    section{
+      scroll-margin-top:18px;
+    }
+
+    input[type="text"],
+    textarea,
+    select{
+      width:100%;
+      border:1px solid #cfdbef;
+      border-radius:16px;
+      padding:12px 14px;
+      font:inherit;
+      color:var(--text);
+      background:#fcfdff;
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .exercise{
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+      background:linear-gradient(180deg,#fff,#fbfdff);
+      margin-bottom:16px;
+    }
+
+    .exercise.hidden{
+      display:none;
+    }
+
+    .meta{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .tag{
+      font-size:.82rem;
+      font-weight:700;
+      padding:7px 10px;
+      border-radius:999px;
+      background:#eef4ff;
+      color:#3958c8;
+      border:1px solid #dbe4ff;
+    }
+
+    .copy-model{
+      background:#f8fbff;
+      border:1px dashed #bad0f5;
+      border-radius:18px;
+      padding:14px;
+      margin:12px 0;
+    }
+
+    .result{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      display:none;
+      white-space:pre-wrap;
+      line-height:1.52;
+    }
+
+    .result.show{display:block}
+    .okBox{background:#ecfbf2;border:1px solid #bde7cb;color:#13633e}
+    .badBox{background:#fff1f5;border:1px solid #f2bfd0;color:#9f184a}
+    .infoBox{background:#eff7ff;border:1px solid #c8def9;color:#1f4a84}
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:16px 0 18px;
+    }
+
+    .tab-btn.active{
+      background:var(--primary);
+      color:white;
+      border:none;
+    }
+
+    .tab-btn{
+      background:white;
+      color:var(--primary);
+      border:1px solid #dbe4ff;
+    }
+
+    .tab-panel{
+      display:none;
+    }
+
+    .tab-panel.active{
+      display:block;
+    }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:.95rem;
+    }
+
+    .table th,
+    .table td{
+      border:1px solid var(--line);
+      padding:10px;
+      vertical-align:top;
+    }
+
+    .table th{
+      background:#f2f6ff;
+    }
+
+    .timer{
+      font-size:2rem;
+      font-weight:700;
+      text-align:center;
+      padding:14px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid var(--line);
+    }
+
+    .timer.warning{
+      background:#fff8e8;
+      border-color:#f2d38b;
+      color:#8f5b00;
+    }
+
+    .timer.danger{
+      background:#fff1f5;
+      border-color:#f2bfd0;
+      color:#9f184a;
+    }
+
+    .lock-screen{
+      border:2px dashed #c8d6f7;
+      border-radius:20px;
+      padding:26px;
+      background:#f8fbff;
+      text-align:center;
+    }
+
+    .score-big{
+      font-size:2rem;
+      font-weight:700;
+    }
+
+    .ranking-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .ranking-list li{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:11px 0;
+      border-bottom:1px dashed var(--line);
+    }
+
+    .footer-note{
+      margin-top:18px;
+      padding:16px;
+      border-radius:18px;
+      background:#fffaf0;
+      border:1px solid #f0dfb7;
+    }
+
+    @media (max-width:980px){
+      .hero-grid,
+      .top-grid,
+      .layout,
+      .grid-2,
+      .grid-3,
+      .kpi-grid{
+        grid-template-columns:1fr;
+      }
+      .sidebar{
+        position:static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Tema 5 · Sectores económicos II · V3</h1>
+          <p>Versión más completa, con niveles, recuperación de errores, examen bloqueado y control más claro del progreso.</p>
+          <div class="menu">
+            <a class="btn secondary" href="#teoria">Teoría</a>
+            <a class="btn secondary" href="#copiar">Modelo a copiar</a>
+            <a class="btn secondary" href="#practica">Práctica</a>
+            <a class="btn secondary" href="#examen">Examen</a>
+            <a class="btn secondary" href="#ranking">Ranking</a>
+          </div>
+        </div>
+
+        <div class="card glass">
+          <label for="studentName"><strong>Nombre del alumno</strong></label>
+          <input id="studentName" type="text" placeholder="Escribe tu nombre" style="margin-top:10px;background:rgba(255,255,255,.92)">
+          <div class="stats">
+            <div class="stat">
+              <div class="small">Aciertos</div>
+              <div class="n" id="hitsTop">0</div>
+            </div>
+            <div class="stat">
+              <div class="small">Intentos</div>
+              <div class="n" id="triesTop">0</div>
+            </div>
+            <div class="stat">
+              <div class="small">Puntos</div>
+              <div class="n" id="pointsTop">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="top-grid">
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <div>
+            <h2 style="margin-bottom:6px">Progreso general</h2>
+            <div class="muted">Completa actividades, repite errores y sube tu nivel.</div>
+          </div>
+          <div class="chip"><strong id="progressLabel">0%</strong> completado</div>
+        </div>
+        <div class="progress-shell" style="margin-top:14px">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="row" style="margin-top:14px">
+          <span class="chip">Objetivo recomendado: 85% o más</span>
+          <span class="chip">Modo solo fallos</span>
+          <span class="chip">Examen bloqueado</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Ruta para nota alta</h2>
+        <ol class="muted" style="margin:0;padding-left:20px;line-height:1.7">
+          <li>Lee teoría rápida y cuadros.</li>
+          <li>Haz el modelo a copiar.</li>
+          <li>Trabaja por niveles en práctica.</li>
+          <li>Activa “solo fallos”.</li>
+          <li>Cuando te veas firme, desbloquea el examen.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="card nav">
+          <a href="#teoria">1. Teoría</a>
+          <a href="#copiar">2. Modelo a copiar</a>
+          <a href="#practica">3. Práctica por niveles</a>
+          <a href="#cuadros">4. Cuadros útiles</a>
+          <a href="#examen">5. Examen bloqueado</a>
+          <a href="#ranking">6. Ranking</a>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <h3>Filtros</h3>
+          <div class="row">
+            <button class="ghost" onclick="showAllPractice()">Ver todo</button>
+            <button class="warn" onclick="showOnlyFails()">Solo fallos</button>
+          </div>
+          <p class="muted small" style="margin-top:12px">Repetir lo que sale mal vale más que hacer veinte ejercicios fáciles.</p>
+        </div>
+      </aside>
+
+      <main>
+        <section id="teoria" class="card">
+          <h2>Teoría clara</h2>
+          <div class="grid-2">
+            <div class="card">
+              <h3>Ideas básicas</h3>
+              <ul class="muted">
+                <li><strong>Sector terciario:</strong> no extrae ni transforma productos; presta servicios.</li>
+                <li><strong>Servicios públicos:</strong> los presta el Estado.</li>
+                <li><strong>Servicios privados:</strong> los prestan empresas privadas.</li>
+                <li><strong>Comercio:</strong> intercambio de bienes y servicios.</li>
+                <li><strong>Transporte:</strong> traslado de personas y mercancías.</li>
+                <li><strong>Turismo:</strong> desplazamiento temporal de más de un día y menos de un año.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Diferencias importantes</h3>
+              <ul class="muted">
+                <li><strong>Interior / exterior:</strong> dentro del país / entre países.</li>
+                <li><strong>Mayorista / minorista:</strong> vende a minoristas / vende al consumidor.</li>
+                <li><strong>Importación / exportación:</strong> comprar fuera / vender fuera.</li>
+                <li><strong>Balanza comercial / balanza de pagos:</strong> mercancías / todas las operaciones económicas.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Transporte</h3>
+              <p class="muted">Cumple funciones económicas, políticas y culturales. Une territorios y facilita el comercio.</p>
+            </div>
+            <div class="card">
+              <h3>Turismo</h3>
+              <p class="muted">Suele ser estacional, depende de factores físicos y humanos y tiene efectos positivos y negativos.</p>
+            </div>
+            <div class="card">
+              <h3>Finanzas</h3>
+              <p class="muted">Incluye bancos y cajas de ahorro, fondos de inversión y aseguradoras.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="copiar" class="card" style="margin-top:18px">
+          <h2>Modelo a copiar</h2>
+          <p class="muted">Primero mira. Después escribe tú. Luego comprueba. Aquí se fijan las estructuras buenas.</p>
+          <div id="copyExercises"></div>
+        </section>
+
+        <section id="practica" class="card" style="margin-top:18px">
+          <div class="row" style="justify-content:space-between">
+            <div>
+              <h2>Práctica por niveles</h2>
+              <p class="muted">Avanza de lo básico a lo más exigente. Cada nivel afina más el pensamiento.</p>
+            </div>
+            <div class="chip">Niveles 1 · 2 · 3</div>
+          </div>
+
+          <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('nivel1', this)">Nivel 1 · Base</button>
+            <button class="tab-btn" onclick="openTab('nivel2', this)">Nivel 2 · Medio</button>
+            <button class="tab-btn" onclick="openTab('nivel3', this)">Nivel 3 · Dominio</button>
+          </div>
+
+          <div id="nivel1" class="tab-panel active">
+            <div id="practiceNivel1"></div>
+          </div>
+
+          <div id="nivel2" class="tab-panel">
+            <div id="practiceNivel2"></div>
+          </div>
+
+          <div id="nivel3" class="tab-panel">
+            <div id="practiceNivel3"></div>
+          </div>
+        </section>
+
+        <section id="cuadros" class="card" style="margin-top:18px">
+          <h2>Cuadros útiles</h2>
+
+          <h3>Medios de transporte</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Medio</th>
+                <th>Vehículo</th>
+                <th>Infraestructura</th>
+                <th>Uso</th>
+                <th>Ventajas</th>
+                <th>Inconvenientes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Carretera</td>
+                <td>coche, camión, autobús</td>
+                <td>carreteras, autovías, autopistas</td>
+                <td>corta y media distancia</td>
+                <td>directo</td>
+                <td>atascos, contaminación, accidentes</td>
+              </tr>
+              <tr>
+                <td>Ferroviario</td>
+                <td>tren</td>
+                <td>vías y estaciones</td>
+                <td>personas y carga</td>
+                <td>barato, seguro</td>
+                <td>necesita enlace complementario</td>
+              </tr>
+              <tr>
+                <td>Marítimo</td>
+                <td>barco</td>
+                <td>puertos y canales</td>
+                <td>larga distancia y gran volumen</td>
+                <td>barato, mucha carga</td>
+                <td>lento</td>
+              </tr>
+              <tr>
+                <td>Aéreo</td>
+                <td>avión</td>
+                <td>aeropuertos</td>
+                <td>larga distancia y urgencia</td>
+                <td>rápido</td>
+                <td>caro, contaminante</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 style="margin-top:18px">Consecuencias del turismo</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Positivas</th>
+                <th>Negativas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Económicas</td>
+                <td>empleo, ingresos</td>
+                <td>precariedad, subida de precios</td>
+              </tr>
+              <tr>
+                <td>Demográficas</td>
+                <td>atrae población</td>
+                <td>saturación</td>
+              </tr>
+              <tr>
+                <td>Sociales</td>
+                <td>modernización</td>
+                <td>pérdida de identidad</td>
+              </tr>
+              <tr>
+                <td>Medioambientales</td>
+                <td>rehabilitación de algunas áreas</td>
+                <td>contaminación, alteración del paisaje</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="examen" class="card" style="margin-top:18px">
+          <h2>Examen bloqueado</h2>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Control de tiempo</h3>
+              <p class="muted">Úsalo como simulación real.</p>
+              <div id="timer" class="timer">15:00</div>
+              <div class="row" style="justify-content:center;margin-top:12px">
+                <button onclick="startTimer()">Iniciar</button>
+                <button class="ghost" onclick="pauseTimer()">Pausar</button>
+                <button class="warn" onclick="resetTimer()">Reiniciar</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Notas por bloques</h3>
+              <div class="kpi-grid">
+                <div class="card center"><div class="small muted">Copiar</div><div id="gradeCopy" class="score-big" style="font-size:1.25rem">0</div></div>
+                <div class="card center"><div class="small muted">Práctica</div><div id="gradePractice" class="score-big" style="font-size:1.25rem">0</div></div>
+                <div class="card center"><div class="small muted">Examen</div><div id="gradeExam" class="score-big" style="font-size:1.25rem">0</div></div>
+                <div class="card center"><div class="small muted">Global</div><div id="gradeGlobal" class="score-big" style="font-size:1.25rem">0</div></div>
+                <div class="card center"><div class="small muted">Nivel</div><div id="gradeLevel" class="score-big" style="font-size:1.05rem">Base</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="examLockBox" class="lock-screen" style="margin-top:16px">
+            <h3>Examen bloqueado</h3>
+            <p class="muted">No lo abras demasiado pronto. Primero asegúrate de haber hecho práctica con honestidad.</p>
+            <div class="row" style="justify-content:center;margin-top:12px">
+              <button onclick="unlockExam()">Desbloquear examen</button>
+            </div>
+          </div>
+
+          <div id="examContent" style="display:none;margin-top:16px">
+            <div id="examExercises"></div>
+
+            <div class="card center" style="margin-top:16px;background:#f8fbff">
+              <div class="muted">Tu nota estimada de examen</div>
+              <div id="examScore" class="score-big">0 / 100</div>
+              <div class="row" style="justify-content:center;margin-top:12px">
+                <button onclick="saveRanking()">Guardar en ranking</button>
+                <button class="ghost" onclick="lockExam()">Volver a bloquear</button>
+                <button class="ghost" onclick="resetAll()">Reiniciar progreso</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="ranking" class="card" style="margin-top:18px">
+          <h2>Ranking</h2>
+          <div class="grid-2">
+            <div class="card">
+              <h3>Mejores puntuaciones</h3>
+              <ol id="rankingList" class="ranking-list"></ol>
+            </div>
+
+            <div class="card">
+              <h3>Tu resumen</h3>
+              <div class="kpi-grid">
+                <div class="card center"><div class="small muted">Aciertos</div><div id="kpiHits" class="score-big" style="font-size:1.35rem">0</div></div>
+                <div class="card center"><div class="small muted">Errores</div><div id="kpiFails" class="score-big" style="font-size:1.35rem">0</div></div>
+                <div class="card center"><div class="small muted">Intentos</div><div id="kpiTries" class="score-big" style="font-size:1.35rem">0</div></div>
+                <div class="card center"><div class="small muted">Puntos</div><div id="kpiPoints" class="score-big" style="font-size:1.35rem">0</div></div>
+                <div class="card center"><div class="small muted">Pendientes</div><div id="kpiPending" class="score-big" style="font-size:1.35rem">0</div></div>
+              </div>
+
+              <div class="footer-note">
+                Consejo importante: una web puede corregir bastante bien palabras clave, pero no sustituye del todo la mirada del profesor en respuestas largas. Úsala para entrenar, no para engañarte.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      tries: 0,
+      hits: 0,
+      fails: 0,
+      points: 0,
+      completed: new Set(),
+      wrongSet: new Set(),
+      examUnlocked: false
+    };
+
+    const copyData = [
+      {
+        id:'c1',
+        title:'Definición de sector terciario',
+        model:'El sector terciario es el sector económico que no extrae ni transforma productos. Se dedica a transportar, distribuir y ofrecer servicios.',
+        required:['sector terciario','no extrae','no transforma','transportar','distribuir','servicios'],
+        points:5
+      },
+      {
+        id:'c2',
+        title:'Definición de turismo',
+        model:'El turismo es un desplazamiento desde el lugar de residencia a otro lugar, por un tiempo limitado de más de un día y menos de un año.',
+        required:['turismo','desplazamiento','lugar de residencia','más de un día','menos de un año'],
+        points:5
+      },
+      {
+        id:'c3',
+        title:'Importación y exportación',
+        model:'Importación es la compra de productos o servicios a otros países. Exportación es la venta de productos o servicios a otros países.',
+        required:['importación','compra','otros países','exportación','venta'],
+        points:5
+      }
+    ];
+
+    const practiceData = [
+      {
+        id:'p1', level:1, type:'short',
+        title:'Servicios públicos y privados',
+        prompt:'Explica la diferencia entre servicios públicos y servicios privados.',
+        expected:'Los servicios públicos los ofrece el Estado para cubrir necesidades de la población. Los servicios privados los ofrecen empresas privadas para ganar dinero.',
+        required:['servicios públicos','estado','necesidades','servicios privados','empresas','ganar dinero'],
+        points:6
+      },
+      {
+        id:'p2', level:1, type:'short',
+        title:'Comercio interior y exterior',
+        prompt:'Explica la diferencia entre comercio interior y comercio exterior.',
+        expected:'El comercio interior se realiza dentro de un país. El comercio exterior se hace entre distintos países.',
+        required:['interior','dentro de un país','exterior','distintos países'],
+        points:6
+      },
+      {
+        id:'p3', level:1, type:'vf',
+        title:'Verdadero o falso',
+        prompt:'Una de las características del turismo es que suele ser estacional.',
+        answer:true,
+        reason:'Sí. No se reparte igual durante todo el año.',
+        points:4
+      },
+      {
+        id:'p4', level:1, type:'choice',
+        title:'Elige el mejor transporte',
+        prompt:'Ir a cerrar un negocio en Pekín.',
+        options:['Carretera','Ferroviario','Marítimo','Aéreo'],
+        answer:'Aéreo',
+        why:'Para personas a larga distancia, el avión es el más rápido.',
+        points:4
+      },
+
+      {
+        id:'p5', level:2, type:'short',
+        title:'Mayorista y minorista',
+        prompt:'Explica la diferencia entre comercio mayorista y comercio minorista.',
+        expected:'El mayorista compra a los productores y vende a los minoristas. El minorista vende al consumidor.',
+        required:['mayorista','productores','minoristas','minorista','consumidor'],
+        points:6
+      },
+      {
+        id:'p6', level:2, type:'short',
+        title:'Funciones del transporte',
+        prompt:'¿Qué funciones cumple el transporte?',
+        expected:'Cumple funciones económicas, políticas y culturales.',
+        required:['económicas','políticas','culturales'],
+        points:6
+      },
+      {
+        id:'p7', level:2, type:'choice',
+        title:'Elige el mejor transporte',
+        prompt:'Enviar un cargamento de patatas a Argentina.',
+        options:['Carretera','Ferroviario','Marítimo','Aéreo'],
+        answer:'Marítimo',
+        why:'Es mercancía de larga distancia y el transporte marítimo permite mucha carga.',
+        points:4
+      },
+      {
+        id:'p8', level:2, type:'vf',
+        title:'Verdadero o falso',
+        prompt:'El transporte ferroviario es el mejor para ir de puerta a puerta sin ayuda de otro medio.',
+        answer:false,
+        reason:'Suele necesitar otro transporte complementario.',
+        points:4
+      },
+
+      {
+        id:'p9', level:3, type:'short',
+        title:'Consecuencias del turismo',
+        prompt:'Escribe dos consecuencias positivas y dos negativas del turismo.',
+        expected:'Positivas: crea empleo y aporta ingresos. Negativas: empleo precario y contaminación o subida de precios.',
+        required:['empleo','ingresos','precario','contaminación'],
+        points:8
+      },
+      {
+        id:'p10', level:3, type:'short',
+        title:'Etapas del turismo',
+        prompt:'Resume brevemente cómo ha evolucionado el turismo.',
+        expected:'Primero fue propio de élites; en los años 50 y 60 se hizo más accesible; en los 70 bajó el precio del avión y desde los 80 creció mucho y surgieron nuevas modalidades.',
+        required:['élites','50','60','70','80'],
+        points:8
+      },
+      {
+        id:'p11', level:3, type:'choice',
+        title:'Comercio minorista',
+        prompt:'¿Qué opción corresponde a un gran almacén?',
+        options:['Mercadona','Mercadillo de ropa','El Corte Inglés','Panadería de barrio'],
+        answer:'El Corte Inglés',
+        why:'Es un comercio grande, con muchos productos y atención por dependiente.',
+        points:4
+      },
+      {
+        id:'p12', level:3, type:'short',
+        title:'Sector financiero',
+        prompt:'¿Qué empresas podemos distinguir en el sector financiero?',
+        expected:'Bancos y cajas de ahorro, fondos de inversión y aseguradoras.',
+        required:['bancos','cajas de ahorro','fondos de inversión','aseguradoras'],
+        points:5
+      }
+    ];
+
+    const examData = [
+      {
+        id:'e1', type:'short',
+        title:'Define sector terciario',
+        prompt:'Define con precisión qué es el sector terciario.',
+        required:['no extrae','no transforma','servicios'],
+        expected:'Es el sector económico que no extrae ni transforma productos y se dedica a ofrecer servicios.',
+        points:12
+      },
+      {
+        id:'e2', type:'short',
+        title:'Diferencias',
+        prompt:'Explica la diferencia entre importación y exportación.',
+        required:['importación','compra','exportación','venta','otros países'],
+        expected:'La importación es la compra a otros países y la exportación es la venta a otros países.',
+        points:12
+      },
+      {
+        id:'e3', type:'vf',
+        title:'Verdadero o falso',
+        prompt:'Hasta mediados del siglo XX el turismo era una actividad de élites.',
+        answer:true,
+        reason:'Sí. Estaba ligado a aristocracia y burguesía con recursos.',
+        points:8
+      },
+      {
+        id:'e4', type:'choice',
+        title:'Transporte',
+        prompt:'Enviar prensa urgente a un hotel de Nueva York.',
+        options:['Marítimo','Aéreo','Carretera','Ferroviario'],
+        answer:'Aéreo',
+        why:'La prensa debe llegar rápido y es mercancía ligera.',
+        points:8
+      },
+      {
+        id:'e5', type:'short',
+        title:'Turismo',
+        prompt:'Escribe dos consecuencias económicas y dos medioambientales del turismo.',
+        required:['empleo','ingresos','contamina','paisaje'],
+        expected:'Económicas: crea empleo y aporta ingresos. Medioambientales: contamina y altera el paisaje.',
+        points:12
+      },
+      {
+        id:'e6', type:'short',
+        title:'Finanzas',
+        prompt:'Nombra las empresas del sector financiero.',
+        required:['bancos','fondos de inversión','aseguradoras'],
+        expected:'Bancos y cajas de ahorro, fondos de inversión y aseguradoras.',
+        points:8
+      },
+      {
+        id:'e7', type:'short',
+        title:'Transporte',
+        prompt:'¿Qué funciones cumple el transporte?',
+        required:['económicas','políticas','culturales'],
+        expected:'Funciones económicas, políticas y culturales.',
+        points:10
+      },
+      {
+        id:'e8', type:'choice',
+        title:'Comercio',
+        prompt:'¿Cuál es un comercio minorista de autoservicio y tamaño mediano?',
+        options:['Supermercado','Gran almacén','Mercadillo','Tienda tradicional'],
+        answer:'Supermercado',
+        why:'Es mediano y funciona en autoservicio.',
+        points:10
+      },
+      {
+        id:'e9', type:'vf',
+        title:'Verdadero o falso',
+        prompt:'Los servicios financieros tienen que ver con la gestión del dinero.',
+        answer:true,
+        reason:'Exacto. Incluyen banca, fondos y seguros.',
+        points:10
+      },
+      {
+        id:'e10', type:'short',
+        title:'Etapas del turismo',
+        prompt:'Resume las etapas del desarrollo del turismo.',
+        required:['élites','50','60','70','80'],
+        expected:'Hasta mediados del siglo XX fue turismo de élites; en los 50 y 60 se masifica; en los 70 se abarata el avión; desde los 80 crece y aparecen nuevos tipos.',
+        points:10
+      }
+    ];
+
+    function normalizeText(str=''){
+      return str.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+        .replace(/[.,;:¡!¿?\(\)\-]/g,' ')
+        .replace(/\s+/g,' ')
+        .trim();
+    }
+
+    function totalPoints(arr){
+      return arr.reduce((sum, x) => sum + x.points, 0);
+    }
+
+    function getPendingCount(){
+      return copyData.length + practiceData.length + examData.length - state.completed.size;
+    }
+
+    function getCompletion(arr){
+      const got = arr.filter(x => state.completed.has(x.id)).reduce((sum, x) => sum + x.points, 0);
+      const total = totalPoints(arr);
+      return total ? (got / total) * 10 : 0;
+    }
+
+    function getGlobalGrade(){
+      const all = [...copyData, ...practiceData, ...examData];
+      const got = all.filter(x => state.completed.has(x.id)).reduce((sum, x) => sum + x.points, 0);
+      return (got / totalPoints(all)) * 10;
+    }
+
+    function levelFromGrade(g){
+      if(g >= 9) return 'Excelente';
+      if(g >= 7) return 'Muy bien';
+      if(g >= 5) return 'Aprobado';
+      return 'Base';
+    }
+
+    function registerResult(id, correct, points){
+      state.tries++;
+
+      if(correct){
+        if(!state.completed.has(id)){
+          state.completed.add(id);
+          state.points += points;
+        }
+        state.wrongSet.delete(id);
+        state.hits++;
+      } else {
+        if(!state.completed.has(id)){
+          state.wrongSet.add(id);
+        }
+        state.fails++;
+      }
+
+      updateUI();
+    }
+
+    function feedbackForMissing(required, answer){
+      const norm = normalizeText(answer);
+      const missing = required.filter(k => !norm.includes(normalizeText(k)));
+      if(missing.length === 0){
+        return 'Muy bien. La idea principal está completa.';
+      }
+      return 'Te falta incluir alguna idea clave:\n- ' + missing.join('\n- ');
+    }
+
+    function updateUI(){
+      document.getElementById('hitsTop').textContent = state.hits;
+      document.getElementById('triesTop').textContent = state.tries;
+      document.getElementById('pointsTop').textContent = state.points;
+
+      document.getElementById('kpiHits').textContent = state.hits;
+      document.getElementById('kpiFails').textContent = state.fails;
+      document.getElementById('kpiTries').textContent = state.tries;
+      document.getElementById('kpiPoints').textContent = state.points;
+      document.getElementById('kpiPending').textContent = getPendingCount();
+
+      const totalActivities = copyData.length + practiceData.length + examData.length;
+      const progress = Math.round((state.completed.size / totalActivities) * 100);
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('progressLabel').textContent = progress + '%';
+
+      document.getElementById('gradeCopy').textContent = getCompletion(copyData).toFixed(1);
+      document.getElementById('gradePractice').textContent = getCompletion(practiceData).toFixed(1);
+      document.getElementById('gradeExam').textContent = getCompletion(examData).toFixed(1);
+
+      const global = getGlobalGrade();
+      document.getElementById('gradeGlobal').textContent = global.toFixed(1);
+      document.getElementById('gradeLevel').textContent = levelFromGrade(global);
+
+      updateExamScore();
+    }
+
+    function renderCopy(){
+      const box = document.getElementById('copyExercises');
+
+      copyData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'exercise';
+        div.dataset.id = item.id;
+        div.innerHTML = `
+          <div class="meta">
+            <span class="tag">Modelo a copiar</span>
+            <span class="tag">${item.points} puntos</span>
+          </div>
+          <h3>${item.title}</h3>
+          <div class="copy-model"><strong>Modelo:</strong><br>${item.model}</div>
+          <label><strong>Ahora escríbelo tú:</strong></label>
+          <textarea id="${item.id}_input" placeholder="Escribe aquí intentando acercarte al modelo"></textarea>
+          <div class="row" style="margin-top:10px">
+            <button onclick="checkCopy('${item.id}')">Comprobar</button>
+            <button class="ghost" onclick="fillModel('${item.id}')">Copiar modelo</button>
+          </div>
+          <div id="${item.id}_result" class="result"></div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function fillModel(id){
+      const item = copyData.find(x => x.id === id);
+      document.getElementById(id + '_input').value = item.model;
+    }
+
+    function checkCopy(id){
+      const item = copyData.find(x => x.id === id);
+      const answer = document.getElementById(id + '_input').value;
+      const result = document.getElementById(id + '_result');
+
+      const normAnswer = normalizeText(answer);
+      const overlap = item.required.filter(k => normAnswer.includes(normalizeText(k))).length;
+      const ratio = overlap / item.required.length;
+      const ok = normAnswer.length > 18 && ratio >= 0.8;
+
+      if(ok){
+        result.className = 'result show okBox';
+        result.textContent = '✅ Bien hecho. Tu respuesta recoge casi todas las ideas importantes del modelo.';
+        registerResult(id, true, item.points);
+      } else {
+        result.className = 'result show badBox';
+        result.textContent = '❌ Aún no está bien del todo.\n' + feedbackForMissing(item.required, answer) + '\n\n¿Por qué?\nPorque una definición buena necesita los elementos esenciales, no solo una idea parecida.';
+        registerResult(id, false, item.points);
+      }
+    }
+
+    function renderPractice(){
+      renderPracticeLevel(1, 'practiceNivel1');
+      renderPracticeLevel(2, 'practiceNivel2');
+      renderPracticeLevel(3, 'practiceNivel3');
+    }
+
+    function renderPracticeLevel(level, containerId){
+      const box = document.getElementById(containerId);
+      const levelData = practiceData.filter(x => x.level === level);
+
+      levelData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'exercise';
+        div.dataset.id = item.id;
+
+        let inner = `
+          <div class="meta">
+            <span class="tag">${item.type === 'short' ? 'Respuesta corta' : item.type === 'vf' ? 'Verdadero o falso' : 'Elección'}</span>
+            <span class="tag">${item.points} puntos</span>
+          </div>
+          <h3>${item.title}</h3>
+        `;
+
+        if(item.type === 'short'){
+          inner += `
+            <p>${item.prompt}</p>
+            <textarea id="${item.id}_input" placeholder="Escribe tu respuesta"></textarea>
+            <div class="row" style="margin-top:10px">
+              <button onclick="checkShort('practice','${item.id}')">Comprobar</button>
+              <button class="ghost" onclick="showModel('practice','${item.id}')">Ver modelo</button>
+            </div>
+          `;
+        }
+
+        if(item.type === 'vf'){
+          inner += `
+            <p>${item.prompt}</p>
+            <div class="row">
+              <button class="good" onclick="checkVF('practice','${item.id}',true)">Verdadero</button>
+              <button class="bad" onclick="checkVF('practice','${item.id}',false)">Falso</button>
+            </div>
+          `;
+        }
+
+        if(item.type === 'choice'){
+          inner += `
+            <p>${item.prompt}</p>
+            <div class="row">
+              ${item.options.map(opt => `<button class="ghost" onclick="checkChoice('practice','${item.id}','${opt.replace(/'/g,"\\'")}')">${opt}</button>`).join('')}
+            </div>
+          `;
+        }
+
+        inner += `<div id="${item.id}_result" class="result"></div>`;
+        div.innerHTML = inner;
+        box.appendChild(div);
+      });
+    }
+
+    function renderExam(){
+      const box = document.getElementById('examExercises');
+
+      examData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'exercise';
+        div.dataset.id = item.id;
+
+        let inner = `
+          <div class="meta">
+            <span class="tag">${item.title}</span>
+            <span class="tag">${item.points} puntos</span>
+          </div>
+          <p><strong>${item.prompt}</strong></p>
+        `;
+
+        if(item.type === 'short'){
+          inner += `
+            <textarea id="${item.id}_input" placeholder="Escribe tu respuesta de examen"></textarea>
+            <div class="row" style="margin-top:10px">
+              <button onclick="checkShort('exam','${item.id}')">Comprobar</button>
+              <button class="ghost" onclick="showModel('exam','${item.id}')">Ver orientación</button>
+            </div>
+          `;
+        }
+
+        if(item.type === 'vf'){
+          inner += `
+            <div class="row">
+              <button class="good" onclick="checkVF('exam','${item.id}',true)">Verdadero</button>
+              <button class="bad" onclick="checkVF('exam','${item.id}',false)">Falso</button>
+            </div>
+          `;
+        }
+
+        if(item.type === 'choice'){
+          inner += `
+            <div class="row">
+              ${item.options.map(opt => `<button class="ghost" onclick="checkChoice('exam','${item.id}','${opt.replace(/'/g,"\\'")}')">${opt}</button>`).join('')}
+            </div>
+          `;
+        }
+
+        inner += `<div id="${item.id}_result" class="result"></div>`;
+        div.innerHTML = inner;
+        box.appendChild(div);
+      });
+    }
+
+    function showModel(scope, id){
+      const data = scope === 'practice' ? practiceData : examData;
+      const item = data.find(x => x.id === id);
+      const result = document.getElementById(id + '_result');
+      result.className = 'result show infoBox';
+      result.textContent = 'Modelo:\n' + item.expected;
+    }
+
+    function checkShort(scope, id){
+      const data = scope === 'practice' ? practiceData : examData;
+      const item = data.find(x => x.id === id);
+      const answer = document.getElementById(id + '_input').value;
+      const result = document.getElementById(id + '_result');
+
+      const norm = normalizeText(answer);
+      const missing = item.required.filter(k => !norm.includes(normalizeText(k)));
+
+      if(missing.length <= 1 && norm.length > 20){
+        result.className = 'result show okBox';
+        result.textContent = '✅ Correcto o muy cercano.\n' + (missing.length ? 'Solo te faltaba una idea menor.' : 'Has incluido las ideas clave.');
+        registerResult(id, true, item.points);
+      } else {
+        result.className = 'result show badBox';
+        result.textContent = '❌ No está completo.\nTe falta:\n- ' + missing.join('\n- ') + '\n\n¿Por qué?\nPorque aquí el profesor suele buscar palabras clave y relaciones correctas entre conceptos.\n\nModelo orientativo:\n' + item.expected;
+        registerResult(id, false, item.points);
+      }
+    }
+
+    function checkVF(scope, id, selected){
+      const data = scope === 'practice' ? practiceData : examData;
+      const item = data.find(x => x.id === id);
+      const result = document.getElementById(id + '_result');
+
+      if(selected === item.answer){
+        result.className = 'result show okBox';
+        result.textContent = '✅ Correcto.\n' + item.reason;
+        registerResult(id, true, item.points);
+      } else {
+        result.className = 'result show badBox';
+        result.textContent = '❌ Incorrecto.\n' + item.reason + '\n\n¿Por qué?\nPorque aquí estabas confundiendo el dato teórico principal.';
+        registerResult(id, false, item.points);
+      }
+    }
+
+    function checkChoice(scope, id, selected){
+      const data = scope === 'practice' ? practiceData : examData;
+      const item = data.find(x => x.id === id);
+      const result = document.getElementById(id + '_result');
+
+      if(selected === item.answer){
+        result.className = 'result show okBox';
+        result.textContent = '✅ Correcto.\n' + item.why;
+        registerResult(id, true, item.points);
+      } else {
+        result.className = 'result show badBox';
+        result.textContent = '❌ Incorrecto.\nRespuesta correcta: ' + item.answer + '.\n' + item.why + '\n\n¿Por qué?\nPorque había que fijarse mejor en la distancia, el uso o la definición exacta.';
+        registerResult(id, false, item.points);
+      }
+    }
+
+    function openTab(id, btn){
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function showOnlyFails(){
+      document.querySelectorAll('#practica .exercise').forEach(el => {
+        const id = el.dataset.id;
+        if(state.wrongSet.has(id)){
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    function showAllPractice(){
+      document.querySelectorAll('#practica .exercise').forEach(el => {
+        el.classList.remove('hidden');
+      });
+    }
+
+    function unlockExam(){
+      state.examUnlocked = true;
+      document.getElementById('examLockBox').style.display = 'none';
+      document.getElementById('examContent').style.display = 'block';
+    }
+
+    function lockExam(){
+      state.examUnlocked = false;
+      document.getElementById('examLockBox').style.display = 'block';
+      document.getElementById('examContent').style.display = 'none';
+    }
+
+    function updateExamScore(){
+      const got = examData.filter(x => state.completed.has(x.id)).reduce((sum, x) => sum + x.points, 0);
+      const total = totalPoints(examData);
+      const box = document.getElementById('examScore');
+      if(box){
+        box.textContent = got + ' / ' + total;
+      }
+    }
+
+    function saveRanking(){
+      const name = (document.getElementById('studentName').value || 'Alumno').trim();
+      const examScore = examData.filter(x => state.completed.has(x.id)).reduce((sum, x) => sum + x.points, 0);
+      const ranking = JSON.parse(localStorage.getItem('tema5_ranking_v3') || '[]');
+
+      ranking.push({
+        name,
+        score: examScore,
+        global: getGlobalGrade(),
+        date: new Date().toLocaleDateString('es-ES')
+      });
+
+      ranking.sort((a,b) => b.score - a.score || b.global - a.global);
+      localStorage.setItem('tema5_ranking_v3', JSON.stringify(ranking.slice(0,10)));
+      renderRanking();
+    }
+
+    function renderRanking(){
+      const ranking = JSON.parse(localStorage.getItem('tema5_ranking_v3') || '[]');
+      const list = document.getElementById('rankingList');
+      list.innerHTML = '';
+
+      if(!ranking.length){
+        list.innerHTML = '<li><span class="muted">Todavía no hay puntuaciones guardadas.</span><span></span></li>';
+        return;
+      }
+
+      ranking.forEach((r, idx) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>
+            <strong>#${idx + 1} ${r.name}</strong><br>
+            <span class="muted small">${r.date} · global ${r.global.toFixed(1)}</span>
+          </span>
+          <span><strong>${r.score}</strong>/100</span>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function resetAll(){
+      state.tries = 0;
+      state.hits = 0;
+      state.fails = 0;
+      state.points = 0;
+      state.completed = new Set();
+      state.wrongSet = new Set();
+
+      document.querySelectorAll('textarea,input[type="text"]').forEach(el => {
+        if(el.id !== 'studentName'){
+          el.value = '';
+        }
+      });
+
+      document.querySelectorAll('.result').forEach(el => {
+        el.className = 'result';
+        el.textContent = '';
+      });
+
+      showAllPractice();
+      lockExam();
+      resetTimer();
+      updateUI();
+    }
+
+    let timerInterval = null;
+    let timeLeft = 15 * 60;
+
+    function drawTimer(){
+      const el = document.getElementById('timer');
+      const min = String(Math.floor(timeLeft / 60)).padStart(2,'0');
+      const sec = String(timeLeft % 60).padStart(2,'0');
+      el.textContent = `${min}:${sec}`;
+      el.classList.remove('warning','danger');
+
+      if(timeLeft <= 300) el.classList.add('warning');
+      if(timeLeft <= 60) el.classList.add('danger');
+    }
+
+    function startTimer(){
+      if(timerInterval) return;
+
+      timerInterval = setInterval(() => {
+        if(timeLeft > 0){
+          timeLeft--;
+          drawTimer();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          alert('Tiempo terminado. Revisa tu nota.');
+        }
+      }, 1000);
+    }
+
+    function pauseTimer(){
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetTimer(){
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timeLeft = 15 * 60;
+      drawTimer();
+    }
+
+    renderCopy();
+    renderPractice();
+    renderExam();
+    renderRanking();
+    drawTimer();
+    updateUI();
+    lockExam();
+  </script>
+</body>
+</html>
